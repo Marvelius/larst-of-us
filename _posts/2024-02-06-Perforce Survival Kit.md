@@ -155,7 +155,7 @@ After clicking on Accept Settings, Unreal and Perforce should be connected and a
 
 ![P4V Default Change List ](/larst-of-us/assets/images/PerforceSurvivalKit(25).png)
 All changes made locally but not yet submitted can be viewed in the default changelist in the Pending tab and can be submitted by right-clicking-\>"Submit":
-![P4V Workspace View Context Menu Submit](/assets/images/PerforceSurvivalKit(23).png)
+![P4V Workspace View Context Menu Submit](/larst-of-us/assets/images/PerforceSurvivalKit(23).png)
 
 Before this step, however, you should always check whether all changed files should actually be changed, as it often happens that some files are changed and thus checked out while working, which ultimately should not have been changed at all.
 
@@ -167,7 +167,7 @@ If you realize that the changes you have made may be "not that great" and you kn
 
 To do this, you can right-click on the changelist or individual selected files within a changelist and select the "Revert" menu item. This resets all selected files to the unchanged state or restores deleted files.
 
-![P4V Changelist context menu Revert](/assets/images/PerforceSurvivalKit(16).png)
+![P4V Changelist context menu Revert](/larst-of-us/assets/images/PerforceSurvivalKit(16).png)
 
 New files (those with the small red plus icon) are an exception. These disappear from the changelist, but the files remain in the respective folder. This is a security measure to prevent the accidental deletion of files. To ensure that files are actually deleted locally, the corresponding option must be set manually in the revert window:
 
@@ -187,7 +187,7 @@ All required files/folders can be selected there and added to a changelist via r
 
 Especially when working on several projects, the local Perforce workspace can quickly swell significantly:
 
-![P4V Workspace folder details window, Showing workspace size](/assets/images/PerforceSurvivalKit(34).png)
+![P4V Workspace folder details window, Showing workspace size](/larst-of-us/assets/images/PerforceSurvivalKit(34).png)
 
 If files or entire folders are no longer needed locally, they can simply be deleted using Explorer (Windows) or Finder (Mac). Neither of these programs communicate with Perforce. Therefore, these deletions are not added to any changelist and the files on the server are not changed in any way.
 
@@ -338,7 +338,7 @@ Let's take an excerpt from DefaultEngine.ini as an example:
 
 We insert a line locally at the beginning of the RendererSettings section.
 
-![Except form DefaultEngine.ini with added line at the start](/assets/images/PerforceSurvivalKit(9).png)
+![Except form DefaultEngine.ini with added line at the start](/larst-of-us/assets/images/PerforceSurvivalKit(9).png)
 
 At the same time, the same setting is added to the end of the section on the server:
 
