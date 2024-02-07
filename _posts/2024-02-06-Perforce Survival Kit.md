@@ -97,9 +97,7 @@ Discord: lars.thiessen
 ### Login in to the Perforce client
 
 When the client (P4V) is started for the first time, the "Open Connection" dialog is displayed:
-![P4V Open Connection Dialog](/assets/images/PerforceSurvivalKit(15).png)
-
-![](RackMultipart20240207-1-k3hinj_html_f7a1398b43279cd1.png)
+![P4V Open Connection Dialog](/larst-of-us/assets/images/PerforceSurvivalKit(15).png)
 
 **Server** : The IP address of the server must be entered here. It should end with ":1666", the network port Perforce uses. You've probably received this IP address from your friendly Perforce admin. If you are the admin, you better look up your server's IP now :)
 
