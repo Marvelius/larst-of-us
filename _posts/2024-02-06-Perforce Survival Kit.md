@@ -97,6 +97,7 @@ Discord: lars.thiessen
 ### Login in to the Perforce client
 
 When the client (P4V) is started for the first time, the "Open Connection" dialog is displayed:
+![P4V Open Connection Dialog](/assets/images/PerforceSurvivalKit(15).png)
 
 ![](RackMultipart20240207-1-k3hinj_html_f7a1398b43279cd1.png)
 
@@ -110,7 +111,7 @@ When the client (P4V) is started for the first time, the "Open Connection" dialo
 
 A new workspace can be created in the dialog that now appears. The first required entry is the workspace name:
 
-![](RackMultipart20240207-1-k3hinj_html_5cd5e406fa210600.png)
+![P4V New Workspace Dialog](/assets/images/PerforceSurvivalKit(14).png)
 
 Workspaces are linked to the computer on which they are created. Therefore, the name of the workspace should, if possible, also describe the computer on which it was created, e.g. "MyNameWorkspaceLaptop". If you switch between different computers, you will also need several workspaces (but only one user account).
 
@@ -118,24 +119,19 @@ The workspace root is therefore the local path in which the workspace is created
 
 The last required specification is that of the stream. In simple terms, streams are parallel versions of the same depot; in other version control systems they are called "branches".
 
-![](RackMultipart20240207-1-k3hinj_html_5cd5e406fa210600.png)
-
 In smaller projects, only one stream will exist, especially if the project is mainly based on blueprints instead of C++ code. Nevertheless, a stream must be selected in order to enable work within the depot later on.
 
 IMPORTANT: If a stream is not selected, Perforce will not complain but will create a workspace without complaint. Only when submitting files will you notice that something is wrong, as Perforce does not know where to submit the files without a stream.
-
-###
-
 
 ### Synchronize depot and workspace
 
 After connecting to the Perforce server, we have the option of accessing the depot contents (red); to edit them, we have to copy them to our local workspace (green).
 
-![](RackMultipart20240207-1-k3hinj_html_72049837efcc2b8e.png)
+![P4V Workspace/Depot View](/assets/images/PerforceSurvivalKit(16).png)
 
 In most cases, we do NOT want to download the entire depot, but a specific project. To do this, the project/folder can be selected in the depot view and "Get Latest Revision" can be selected in the context menu.
 
-![](RackMultipart20240207-1-k3hinj_html_6edf25eefa817741.png)
+![P4V Workspace View Context Menu](/assets/images/PerforceSurvivalKit(18).png)
 
 ### Connecting Unreal and Perforce
 
@@ -145,29 +141,27 @@ Theoretically, you can also manually add changed/deleted/created files to a chan
 
 Unreal offers a Perforce connection by default. This can be accessed via the Source Control menu at the bottom right of the editor and the "Connect To Source Control..." item that appears:
 
-![](RackMultipart20240207-1-k3hinj_html_d2c0e57fbbf3cece.png)
+![UE 5 Source Control Menu](/assets/images/PerforceSurvivalKit(17).png)
 
 In the dialog that now appears, Perforce can now be selected as the source control service:
 
-![](RackMultipart20240207-1-k3hinj_html_193eb2fd0aba8420.png)
+![UE5 Source Control Selection](/assets/images/PerforceSurvivalKit(22).png)
 
 The same data must then be entered as in the "Open Connection" dialog in the Perforce Visual Client: IP address of the server, user name and workspace.
 
-![](RackMultipart20240207-1-k3hinj_html_ee88e0f6c7757a3.png)
+![UE5 Source Control Login](/assets/images/PerforceSurvivalKit(20).png)
 
 After clicking on Accept Settings, Unreal and Perforce should be connected and all changes to assets made in the Unreal Editor should be collected in the default changelist in Perforce. Please note that changes are only recognized or reported to Perforce as soon as a file is saved. To ensure that all changes are actually in the changelist before submitting, the "Save All" command can be used or the editor can be closed.
 
 ### Submit a changelist
 
-![](RackMultipart20240207-1-k3hinj_html_8c7c9278f5aeac96.png)
-
-All changes made locally but not yet submitted can be viewed in the default changelist in the Pending tab and can be submitted by right-clicking-\>"Submit": ![](RackMultipart20240207-1-k3hinj_html_bb0b80ba705106c4.png)
+![P4V Default Change List ](/assets/images/PerforceSurvivalKit(25).png)
+All changes made locally but not yet submitted can be viewed in the default changelist in the Pending tab and can be submitted by right-clicking-\>"Submit":
+![P4V Workspace View Context Menu Submit](/assets/images/PerforceSurvivalKit(23).png)
 
 Before this step, however, you should always check whether all changed files should actually be changed, as it often happens that some files are changed and thus checked out while working, which ultimately should not have been changed at all.
 
 If such files are found, they should be reverted before submitting (see next section).
-
-## ![](RackMultipart20240207-1-k3hinj_html_c71eb3ef9055978d.png)
 
 ### Discard local changes
 
@@ -175,26 +169,27 @@ If you realize that the changes you have made may be "not that great" and you kn
 
 To do this, you can right-click on the changelist or individual selected files within a changelist and select the "Revert" menu item. This resets all selected files to the unchanged state or restores deleted files.
 
-![](RackMultipart20240207-1-k3hinj_html_ace3a4b615207a14.png)
+![P4V Changelist context menu Revert](/assets/images/PerforceSurvivalKit(16).png)
 
 New files (those with the small red plus icon) are an exception. These disappear from the changelist, but the files remain in the respective folder. This is a security measure to prevent the accidental deletion of files. To ensure that files are actually deleted locally, the corresponding option must be set manually in the revert window:
 
-![](RackMultipart20240207-1-k3hinj_html_efb93c6c7f755517.png)
+![P4V Revert File Dialog](/assets/images/PerforceSurvivalKit(28).png)
 
 ### Submitting a new project for the first time
 
 If you are already working in a project managed by Perforce, Unreal will automatically report all changes to Perforce and add them to the default changelist. But what if you have just created a new Unreal project in your own workspace and now want to upload it for the first time? Unreal will not have added any files to a changelist at this point because the connection between Unreal and Perforce did not exist when the project was created.
 
 In this case, the files must be manually added to a changelist and submitted. To do this, switch to the workspace view in the Perforce client and search for your newly created project. If it does not show up in the tree structure, you may have to click the refresh button.
- ![](RackMultipart20240207-1-k3hinj_html_ea1ab31330ccd0cd.png)
-
-All required files/folders can be selected there and added to a changelist via right-click -\> "Mark for Add..." and then submitted. Please note that not all files in the project folder should be submitted. Many folders such as "Saved" , "Intermediate" and "DerivedDataCache" contain temporary files that are needed for the project to function on the local computer, but are generated automatically by each computer when the Editor is started. The only files that actually need to be submitted are those in the "Config", "Content" and "Source" folders and the \*.uproject file itself. If you have installed plugins in the project, they usually use the same file structure within their plugin folders for which the same rules apply. With the exception that, in the case of plugins, you also want to submit the "Binaries" folder if you do not want to compile it yourself. ![](RackMultipart20240207-1-k3hinj_html_a4322afe1da49c61.png)
+ 
+![P4V Workspace View, Relevant folders to submit](/assets/images/PerforceSurvivalKit(32).png)
+All required files/folders can be selected there and added to a changelist via right-click -\> "Mark for Add..." and then submitted. Please note that not all files in the project folder should be submitted. Many folders such as "Saved" , "Intermediate" and "DerivedDataCache" contain temporary files that are needed for the project to function on the local computer, but are generated automatically by each computer when the Editor is started. The only files that actually need to be submitted are those in the "Config", "Content" and "Source" folders and the \*.uproject file itself. If you have installed plugins in the project, they usually use the same file structure within their plugin folders for which the same rules apply. With the exception that, in the case of plugins, you also want to submit the "Binaries" folder if you do not want to compile it yourself.
+![P4V Workspace View, Relevant folders to submit](/assets/images/PerforceSurvivalKit(30).png)
 
 ### Deleting local files
 
 Especially when working on several projects, the local Perforce workspace can quickly swell significantly:
 
-![](RackMultipart20240207-1-k3hinj_html_bfcc51bc6ea6bb37.png)
+![P4V Workspace folder details window, Showing workspace size](/assets/images/PerforceSurvivalKit(34).png)
 
 If files or entire folders are no longer needed locally, they can simply be deleted using Explorer (Windows) or Finder (Mac). Neither of these programs communicate with Perforce. Therefore, these deletions are not added to any changelist and the files on the server are not changed in any way.
 
@@ -264,9 +259,10 @@ Many languages already have workarounds for this limitation in place. For exampl
 Traditionally, each level in Unreal consists of a single file with the file extension .umap, which stores all the actors placed in the level, the level blueprint and its settings. This is an obvious and clear structure, but it leads to problems as soon as more than one person wants to work on a level at the same time. In the end, only one of these people can submit the file at the end; all other versions created in parallel must then be discarded or overwrite the submitted version. This is very annoying if a level has to be completed under time pressure but only one team member is allowed to work on it at the same time. You can use sublevels in both UE4 and UE5, partial levels that you load at the same time to assemble the complete level.
  However, it is more convenient to use the "One File Per Actor" feature introduced with 5.0. As the name suggests, the actors placed in the level are no longer saved in the level file, but in individual files, one per actor. These files can be created, edited and submitted independently of each other, as can the actors in the level.
 
-This feature can also be switched on and off afterwards for individual levels ([https://docs.unrealengine.com/5.3/en-US/one-file-per-actor-in-unreal-engine/](https://docs.unrealengine.com/5.3/en-US/one-file-per-actor-in-unreal-engine/)) but it is advisable to consider in advance whether this feature makes sense for a specific level and just create it in the correct mode in the first place. ![](RackMultipart20240207-1-k3hinj_html_b230a848d8b38c0e.png)
+This feature can also be switched on and off afterwards for individual levels ([https://docs.unrealengine.com/5.3/en-US/one-file-per-actor-in-unreal-engine/](https://docs.unrealengine.com/5.3/en-US/one-file-per-actor-in-unreal-engine/)) but it is advisable to consider in advance whether this feature makes sense for a specific level and just create it in the correct mode in the first place.
+![P4V Workspace View, Relevant folders to submit](/assets/images/PerforceSurvivalKit(36).png)
 
-The disadvantage of the feature:The files created are automatically (and cryptically) named and stored in the folders
+The disadvantage of the feature: The files created are automatically (and cryptically) named and stored in the folders
  Content/\_ExternalActors/Projectname/Maps/Mapname
  Content/\_ExternalObjects/Projectname/Maps/Mapname
 
@@ -276,9 +272,9 @@ This sometimes results in long changelists of several hundred or thousands of fi
 
 Especially if the edited project aims for a photorealistic style and therefore consists of many (and large) assets, repeated uploading and downloading of the assets can take longer and longer. If possible, you should avoid the problem altogether by not importing any unnecessary or unnecessarily large assets (8k textures!) into the project. But with large projects at the latest, you can't avoid the project forever. And you might start to ask yourself: Do I actually need all the files in the project? Do I have to download all 14 levels if I only want to work on the first one anyway?
 
-The answer two both questions is almost always: Of course not! An example of this is Guerilla Games, who set up their own file syncing system for their work on the Horizon games, which only downloads files when they are needed:
+The answer to both questions is almost always: Of course not! An example of this is Guerilla Games, who set up their own file syncing system for their work on the Horizon games, which only downloads files when they are needed:
 [https://www.gdcvault.com/play/1028848/Scaling-Tools-for-Millions-of](https://www.gdcvault.com/play/1028848/Scaling-Tools-for-Millions-of)
- Setting up such a system yourself is out of scope for most project, but since version 5.2 Unreal offers a somewhat comparable system: Virtual Assets.
+ Setting up such a system yourself is out of scope for most projects, but since version 5.2 Unreal offers a somewhat comparable system: Virtual Assets.
 
 The idea: Each file in the project is replaced by a (very small) placeholder file that refers to the real, large file. Every time a file has to be loaded in the Unreal editor, for example because it is opened directly or because a level containing it is opened, the editor checks whether the real file is present or "only" the placeholder. If only the placeholder is present, Unreal downloads this required file in the background and then opens it as if the file had always been there. This means that you only have to download the files that you actually need to work with.
  Warning: Converting a project to virtual assets is not trivial and can complicate working with the project. It should only be done if you are sure that the feature is needed for the project.
@@ -298,21 +294,21 @@ This means that conflicts can arise - but they can usually be resolved easily.
 
 If a text file is changed on the server that we have checked out at the same time, a warning appears when the new version is downloaded, drawing our attention to the conflict.
 
-![](RackMultipart20240207-1-k3hinj_html_35a474d95ce132b3.png)
+![P4V Warning about version conflict](/assets/images/PerforceSurvivalKit(35).png)
 
 Perforce has noticed that there is a conflict and wants us to resolve it, or to use Perforce terminology, "resolve" it.
 
 The corresponding file(s) are marked in our changelist with a small red question mark:
 
-![](RackMultipart20240207-1-k3hinj_html_bd6674d950f49330.png)
+![P4V Changelist needs resolve](/assets/images/PerforceSurvivalKit(37).png)
 
 In this state, the file is still unchanged locally, but Perforce will not allow us to submit it until we have resolved the conflict between our version and the server version.
 
 To do this, simply right-click on the file and select "Resolve" to open the Resolve tool:
 
-![](RackMultipart20240207-1-k3hinj_html_243f2dae8b3ad652.png)
+![P4V Changelist Context Menu, Resolve](/assets/images/PerforceSurvivalKit(4).png)
 
-![](RackMultipart20240207-1-k3hinj_html_b097e453764ca020.png)
+![P4V Resolve Dialog](/assets/images/PerforceSurvivalKit(5).png)
 
 Here, the conflicting versions are juxtaposed and we have to choose how we want to resolve the conflict (red frame).
 
@@ -326,9 +322,9 @@ Here, the conflicting versions are juxtaposed and we have to choose how we want 
 
 **If available, you should always use "Accept Merged"**. In 99% of all cases, Perforce will merge both versions without any problems and we don't have to think about the whole Resolve topic any further. Anyone who works a lot with text files (e.g. C++ code) will use this function many dozens of times a day without thinking about conflicts.
 
-However, as already indicated, it can also happen that automatic merging is not available. This is the case if the two versions are in direct conflict with each other, for example because both have changed the same line. Perforce cannot resolve these conflicts automatically and forces us to resolve them manually in the merge tool.
+However, as already indicated, it can also happen that automatic merging is not available. This is the case if the two versions are in direct conflict with each other, for example, because both have changed the same line. Perforce cannot resolve these conflicts automatically and forces us to resolve them manually in the merge tool.
 
-![](RackMultipart20240207-1-k3hinj_html_45d77087848af19d.png)
+![P4V Resolve Tool](/assets/images/PerforceSurvivalKit(6).png)
 
 Perforce's merge tool (like all merge tools of this type) can seem a little intimidating at first. However, the structure is fairly simple. In the upper section, we are presented with three versions of the file. On the far left is the new version from the server (source), on the far right is our local version (target) and in the middle is the original version from which the other two versions originated.
 
@@ -336,21 +332,22 @@ In the lower part we see the partially merged file, and with the red arrows in t
 
 #### Invisible conflicts
 
-To Perforce, all text files are the same; it does not understand what the contents of the files are. This can lead to "invisible" conflicts that are not recognised as conflicts from Perforce's point of view, for example when the same lines have not been changed but the contents of those lines are contradictory.
+To Perforce, all text files are the same; it does not understand what the contents of the files are. This can lead to "invisible" conflicts that are not recognized as conflicts from Perforce's point of view, for example when the same lines have not been changed but the contents of those lines are contradictory.
 
 Let's take an excerpt from DefaultEngine.ini as an example:
 
-![](RackMultipart20240207-1-k3hinj_html_54d2cbe6eebcadf3.png)
+![Except form DefaultEngine.ini](/assets/images/PerforceSurvivalKit(7).png)
 
 We insert a line locally at the beginning of the RendererSettings section.
 
-![](RackMultipart20240207-1-k3hinj_html_6d6557169f36ce66.png)
+![Except form DefaultEngine.ini with added line at the start](/assets/images/PerforceSurvivalKit(9).png)
 
 At the same time, the same setting is added to the end of the section on the server:
 
-![](RackMultipart20240207-1-k3hinj_html_8e058ec6480fd068.png)
+![Except form DefaultEngine.ini with added line at the end](/assets/images/PerforceSurvivalKit(10).png)
 
-As different lines have been changed in both cases, this is not a conflict from Perforce's point of view. Both new lines can be automatically reconciled with each other: ![](RackMultipart20240207-1-k3hinj_html_cd42a41eb28d3cd3.png)
+As different lines have been changed in both cases, this is not a conflict from Perforce's point of view. Both new lines can be automatically reconciled with each other: 
+![Except form DefaultEngine.ini, with both added lines](/assets/images/PerforceSurvivalKit(11).png)
 
 In terms of content, this is of course rubbish, in no case did we want to set the same setting to two different values in the same file. In this case, the conflict "only" leads to surprising rendering settings, which are probably quickly noticed. Such a case rarely occurs - what is the probability that two people will change the exact same setting at the same time and in two different lines? In C++ code, the probability of such invisible conflicts is higher, as different lines refer to each other more frequently, but they almost always become apparent as soon as the code is compiled.
 
@@ -366,7 +363,7 @@ The previous section describes that only text files (such as .ini or .uproject f
 
 When opening an Unreal project, you may be surprised by this small window that wants to change the engine version of the project:
 
-![](RackMultipart20240207-1-k3hinj_html_342d172863dfd3be.png)
+![Select Unreal Engine Version Dialog](/assets/images/PerforceSurvivalKit(8).png)
 
 Why does the window appear? Every Unreal project saves the engine version with which it is being edited in the .uproject file. If the engine version specified there is not installed on the PC on which the project was opened, for example because a 5.2 project was uploaded to Perforce and is now to be opened on a PC on which only 5.1 and 5.3 are installed, the project simply cannot be opened. As a workaround, Unreal opens this window where you can convert the project to another installed version.
 
@@ -380,24 +377,23 @@ The correct solution: Close the window, install the correct engine version via t
 
 ### "Cannot submit from non-stream client"
 
-![](RackMultipart20240207-1-k3hinj_html_6c8458d4c0842012.png)
+![Warning: Cannot submit from non-steam Client](/assets/images/PerforceSurvivalKit(12).png)
 
-When creating the workspace, a stream was forgotten to be selected - Perforce therefore does not know which stream the files should be submitted to. To correct this error, a stream can be selected in the workspace settings: ![](RackMultipart20240207-1-k3hinj_html_49721b75b2406230.png) ![](RackMultipart20240207-1-k3hinj_html_4b3a31f8f51622c9.png)
+When creating the workspace, a stream was forgotten to be selected - Perforce therefore does not know which stream the files should be submitted to. To correct this error, a stream can be selected in the workspace settings:
+![P4V, Connection Menu, Edit Current Workspace](/assets/images/PerforceSurvivalKit(1).png)
+![P4V, Workspace Settings, Stream Selection](/assets/images/PerforceSurvivalKit(13).png)
 
 All further submit attempts should then work as usual.
 
-###
-
-
 ### "Cannot create a file when that file already exists"
 
-![](RackMultipart20240207-1-k3hinj_html_5e740ed2b6a3912a.png)
+![Warning: Cannot create a file that already exists](/assets/images/PerforceSurvivalKit(19).png)
 
 This error occurs during syncing if Perforce fails to update a file with a new version despite repeated attempts. This can theoretically have various causes, but in practice it is likely that the Unreal Editor is still open and is currently accessing the file in question, which makes it impossible for Perforce to access it. The solution is simple: close Unreal Editor and try again.
 
-### "The system cannot find the file specified"
+### "Open for read: The system cannot find the path specified"
 
-![](RackMultipart20240207-1-k3hinj_html_47bb3bbe2f51a664.png)
+![Warning: The system cannot find the path specified](/assets/images/PerforceSurvivalKit(21).png)
 
 This error occurs when an attempt is made to submit a file that does not (or no longer) exist. The most common reason is that a file was created and added to a changelist and then deleted or renamed outside of Perforce. To resolve the problem, the file must be removed from the changelist (right-click -\> "Revert").
 
@@ -415,7 +411,7 @@ Long sync times occur when large project changes have taken place, but if the sy
 
 ### "The system cannot find the path specified"
 
-![](RackMultipart20240207-1-k3hinj_html_ae7664aafb934cb5.png)
+![Warning: The system cannot find the path specified](/assets/images/PerforceSurvivalKit(24).png)
 
 In rare cases, when downloading or uploading a file, a message may appear stating that the file in question could not be found. This occurs when a file has disappeared from the server itself (it will still appear in the history). This problem cannot be solved by the client, in these cases a Perforce admin must be contacted.
 
@@ -427,11 +423,12 @@ The password can be reset at any time, contact the nearest available Perforce ad
 
 ### All my files are read-only
 
-This is not a problem, but actually a feature. To ensure that all changes to the files managed by Perforce can actually be noticed by Perforce, Perforce assigns write protection to all files, which initially makes changes impossible. ![](RackMultipart20240207-1-k3hinj_html_cecd1b252087fb96.png)
+This is not a problem, but actually a feature. To ensure that all changes to the files managed by Perforce can actually be noticed by Perforce, Perforce assigns write protection to all files, which initially makes changes impossible.
+![Unreal error message: File is read-only](/assets/images/PerforceSurvivalKit(3).png)
 
 All programs that can communicate with Perforce and are connected to Perforce (Unreal Engine Editor, Visual Studio) will automatically remove this write protection when editing and checking out files. Only when you edit a file outside of these programs will you notice this write protection. The correct workflow in these cases is to check out the file in Perforce itself:
 
-![](RackMultipart20240207-1-k3hinj_html_7babf2d28afb473e.png)
+![P4V, Manual Checkout](/assets/images/PerforceSurvivalKit(27).png)
 
 This removes the copy protection and at the same time moves the file to a changelist so that the changes cannot be lost.
 
@@ -439,7 +436,8 @@ In general, write protection should not be removed manually, as in most cases th
 
 ### Changes were not recognized
 
-Despite all the routine, it can quickly happen that you are working without a functioning Unreal Force connection or that you have to work offline due to network problems. The latter should generally be avoided, but what if it happens? How do you find out which changes have been made, or how do you inform Perforce that these changes exist and belong in a changelist? ![](RackMultipart20240207-1-k3hinj_html_5add6687cb6a93ca.png)
+Despite all the routine, it can quickly happen that you are working without a functioning Unreal Force connection or that you have to work offline due to network problems. The latter should generally be avoided, but what if it happens? How do you find out which changes have been made, or how do you inform Perforce that these changes exist and belong in a changelist?
+![P4V, Workspace View, Context Menu, Reconcile Offline Work](/assets/images/PerforceSurvivalKit(29).png)
 
 Fortunately, Perforce can scan any folder for changes and add them to a changelist. To do this, select the folder in the workspace tree, open the context menu and select "Reconcile Offline Work", after a short wait Perforce will show all changes found.
 
@@ -464,7 +462,7 @@ Folders NOT relevant for Version Control:
 
 ### Unable to connect to the server
 
-![](RackMultipart20240207-1-k3hinj_html_f2b7e53a5f8333fa.png)
+![P4V Error message: Can't connect to server](/assets/images/PerforceSurvivalKit(31).png)
 
 This error message can theoretically have a number of causes. Faulty Internet connection, incorrect VPN settings, over-cautious firewall. However, if the Internet connection itself seems to be working, the most likely cause of the error is the server itself, in which case please contact your local Perforce admin. Be nice to them, they might have some stress ahead.
 
@@ -480,7 +478,7 @@ Perforce has a few really annoying quirks, but one definitely stands out: userna
 
 ### "Error saving [asset name]."
 
-![](RackMultipart20240207-1-k3hinj_html_4172de4c3154ebfc.png)
+![Error saving asset](/assets/images/PerforceSurvivalKit(33).png)
 
 Theoretically, there can be a number of causes for these error messages, but in practice it is almost always the same one, which doesn't even have anything to do with Perforce:
 
@@ -488,6 +486,6 @@ Accidentally opening two Unreal editors with the same project. In this case, bot
 
 ### "Must resolve before submitting"
 
-![](RackMultipart20240207-1-k3hinj_html_35a474d95ce132b3.png)
+![P4V Warning, "Must Resolve before submitting"](/assets/images/PerforceSurvivalKit(35).png)
 
 This warning is usually more harmless than it appears - and it will rarely occur in pure blueprint projects. Basically, it simply means that a locally changed file has also been changed on the server and Perforce now wants the conflict to be resolved. See the section "Resolving version conflicts" above.
