@@ -6,91 +6,12 @@ Mastodon: @LarsThiessen@mastodon.gamedev.place
 
 Discord: lars.thiessen
 
-## Table of contents
 
-[**Table of contents**](#_1fob9te)
+## About this guide
 
-[**Basic Perforce processes**](#_3znysh7)
+I originally wrote this guide for my game design students who were required to use Perforce for their Unreal projects as part of their courses. After realizing that most of the problems they were encountering were becoming repetitive, I started to write a short cheat sheet that covered the most common problems and their solutions, and explained the basic functions of the Perforce client. This short cheat sheet grew over time (please don't look at the scrollbar of this article) to include more and more problem scenarios and workflows.
+Because of this history, this article is aimed at users who want to use Perforce for their work with the Unreal Editor, mainly artists and designers. If you want to set up or administer a Perforce server yourself, you will find better resources in the official Perforce documentation.
 
-[Login in to the Perforce client](#_2et92p0)
-
-[Create a workspace](#_tyjcwt)
-
-[Synchronize depot and workspace](#_1t3h5sf)
-
-[Connecting Unreal and Perforce](#_4d34og8)
-
-[Submit a changelist](#_2s8eyo1)
-
-[Discard local changes](#_3rdcrjn)
-
-[Submitting a new project for the first time](#_26in1rg)
-
-[Deleting local files](#_lnxbz9)
-
-[**Best Practices**](#_35nkun2)
-
-[Submit frequently](#_1ksv4uv)
-
-[Sync frequently](#_44sinio)
-
-[Meaningful submit descriptions](#_2jxsxqh)
-
-[Go through the files to be submitted](#_z337ya)
-
-[Do not submit large amounts of data that "might be used"](#_3j2qqm3)
-
-[A change per changelist](#_1y810tw)
-
-[Sync before submitting](#_4i7ojhp)
-
-[English asset and folder names ONLY](#_2xcytpi)
-
-[**Perforce features for advanced users**](#_1ci93xb)
-
-[Use "One File Per Actor" for large levels](#_3whwml4)
-
-[Virtual Assets](#_2bn6wsx)
-
-[Resolve version conflicts](#_qsh70q)
-
-[Invisible conflicts](#_3as4poj)
-
-[Data Assets](#_1pxezwc)
-
-[**Troubleshooting**](#_49x2ik5)
-
-["Select Unreal Engine Version"](#_2p2csry)
-
-["Cannot submit from non-stream client"](#_147n2zr)
-
-["Cannot create a file when that file already exists"](#_23ckvvd)
-
-["The system cannot find the file specified"](#_ihv636)
-
-[After each sync, I am logged into Unreal as Perforce user XY](#_32hioqz)
-
-[The file I deleted is still there](#_1hmsyys)
-
-[Syncing takes forever](#_41mghml)
-
-["The system cannot find the path specified"](#_2grqrue)
-
-[Forgotten password](#_vx1227)
-
-[All my files are read-only](#_3fwokq0)
-
-[Changes were not recognized](#_1v1yuxt)
-
-[Unable to connect to the server](#_4f1mdlm)
-
-[I downloaded the project, but it is empty when I open it](#_2u6wntf)
-
-[My username is wrong/outdated](#_19c6y18)
-
-["Error saving [asset name]."](#_3tbugp1)
-
-["Must resolve before submitting"](#_28h4qwu)
 
 ## Basic Perforce processes
 
