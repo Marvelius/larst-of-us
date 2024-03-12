@@ -2,7 +2,7 @@
 
 ## How Real Reflections Work
 
-In nature, lighting tends to function a lot easier than in rendering. Light rays are emitted from light sources, and reflected from surfaces. If they end up in a camera or eye, we see the color of the light/the reflected surface. The problem: Simulating millions of rays of light is expensive. That’s why most real-time renderers don’t bother simulating those rays (this actually starts to change somehow - but very slowly). Instead, they use an algorithm called rasterization. Explaining it might be out of the scope of the article, but to summarize it, most renderers assume that if a surface is in front of a camera, the camera will record the color of the surface at this point - without checking where a potential light ray between this surface and the camera might be blocked or sidetracked. This is a problem. To simulate reflections we need to simulate light rays bouncing of shiny surfaces
+In nature, lighting tends to function a lot easier than in rendering. Light rays are emitted from light sources, and reflected from surfaces. If they end up in a camera or eye, we see the color of the light/the reflected surface. The problem: Simulating millions of rays of light is expensive. That’s why most real-time renderers don’t bother simulating those rays (this actually starts to change somehow - but very slowly). Instead, they use an algorithm called rasterization. Explaining it might be out of the scope of the article, but to summarize it, most renderers assume that if a surface is in front of a camera, the camera will record the color of the surface at this point - without checking where a potential light ray between this surface and the camera might be blocked or sidetracked. This is a problem. To simulate reflections we need to simulate light rays bouncing of shiny surfaces.
 
 ## Introducing Reflection Probes
 
@@ -10,20 +10,20 @@ One common solution is the use of Reflection Probes (called Reflection Capture C
 
 ![alt_text](images/image1.png "image_tooltip")
 
-We can’t simulate reflections, but we can render the scene from the viewpoint of the sphere, as a 360° image and use this as the texture of the sphere, which mimics a perfect reflection very well. This 360° is also called a cubemap giving this technique it’s name: Cubemap reflections.  \
-Sidenote: In general this technique is called Reflection mapping with cubemaps being just one of possible projection method for such a 360° texture. But the name Cubemap reflections is much more common, even if it is not always 100% correct.
+We can’t simulate reflections, but we can render the scene from the viewpoint of the sphere, as a 360° image and use this as the texture of the sphere, which mimics a perfect reflection very well. This 360° is also called a cubemap giving this technique its name: Cubemap reflections.  \
+Sidenote: In general this technique is called Reflection mapping with cubemaps being just one of possible projection methods for such a 360° texture. But the name Cubemap reflections is much more common, even if it is not always 100% correct.
 
-All of this this is straight forward on a sphere, but what about a more irregular shape?
+All of this is straightforward on a sphere, but what about a more irregular shape?
 
 ![alt_text](images/image2.png "image_tooltip")
 
-We can’t use this trick now, right? Well, we can try. Let’s just use the 360° texture from the sphere, and try to match it to this shape. To do this we assume that every point of the mesh will reflect the same pixel as the sphere if it’s normal points into the same direction.
+We can’t use this trick now, right? Well, we can try. Let’s just use the 360° texture from the sphere, and try to match it to this shape. To do this we assume that every point of the mesh will reflect the same pixel as the sphere if its normal points into the same direction.
 
 ![alt_text](images/image3.png "image_tooltip")
 
 This looks… surprisingly convincing. On close inspection, we notice that this reflection isn’t correct. There are some ugly stretched areas in places where the surface normal doesn’t change and some areas reflect points of the scene that shouldn’t be visible to them. But with the exception of plane mirrors most reflective surfaces warp the reflection anyway and since this technique is extremely easy to calculate, we can live with those drawbacks.
 
-Extremely easy to calculate is no exaggeration: even in the early 2000s, consoles were fast enough to display reflections in this way. Here is a slightly later, but very nice example from Flatout 2. Not only are there large scale reflections of the environment in the windows of the skyscrapers, even the whole car seems to reflect nearby buildings and the sky.
+Extremely easy to calculate is no exaggeration: even in the early 2000s, consoles were fast enough to display reflections in this way. Here is a slightly later, but very nice example from Flatout 2. Not only are there large scale reflections of the environment in the windows of the skyscrapers, the car seems to reflect nearby buildings and the sky.
 
 ![alt_text](images/image4.png "image_tooltip")
 
