@@ -13,21 +13,21 @@ Sidenote: In general this technique is called Reflection mapping with cubemaps b
 
 All of this is straightforward on a sphere, but what about a more irregular shape?
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image2.png "A non-reflective  ... something")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image2.png "A non-reflective  ... something")
 
 We can’t use this trick now, right? Well, we can try. Let’s just use the 360° texture from the sphere, and try to match it to this shape. To do this we assume that every point of the mesh will reflect the same pixel as the sphere if its normal points into the same direction.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image3.png "A reflective something")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image3.png "A reflective something")
 
 This looks… surprisingly convincing. On close inspection, we notice that this reflection isn’t correct. There are some ugly stretched areas in places where the surface normal doesn’t change and some areas reflect points of the scene that shouldn’t be visible to them. But with the exception of plane mirrors most reflective surfaces warp the reflection anyway and since this technique is extremely easy to calculate, we can live with those drawbacks.
 
 Extremely easy to calculate is no exaggeration: even in the early 2000s, consoles were fast enough to display reflections in this way. Here is a slightly later, but very nice example from Flatout 2. Not only are there large scale reflections of the environment in the windows of the skyscrapers, the car seems to reflect nearby buildings and the sky.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image4.png "Flatout 2")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image4.png "Flatout 2")
 
 But especially in those early games it’s easy to catch all the drawbacks that come with this technique. First of all, up to this point we did just render one cubemap. A single map can only represent reflections for one point of the level. As soon as the reflective surface starts to move away from the point of capture (which moving surfaces like cars tend to do), the reflection becomes incorrect. Dependent on the level, this might be more or less noticeable. Take a look at this screenshot from the same race, just seconds later. 
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image5.png "Flatout 2")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image5.png "Flatout 2")
 
 In this scene the same car is driving through a shopping mall - but the car roof is still reflecting the blue sky from before. For the reflection on a fast moving sports car it might still be good enough as long as there is something being reflected. After all, on an irregular shape as a car we can’t recognize too much of it anyway. But in case of large, contiguous surfaces, this illusion breaks rather quickly if the cubemap doesn’t match the environment.
 
@@ -35,11 +35,11 @@ Or even worse, sometimes the cube map doesn’t even show the level at all:
 
 https://twitter.com/dark1x/status/1685166191407513600
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image6.png "Witcher 3 reflections")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image6.png "Witcher 3 reflections")
 
 Luckily there is an easy solution, we just need to use multiple cube maps for different points of the level. To do this we just mark all points where a reflection should be captured with a reflection probe. When an object moves around, we just blend between the nearest reflection maps and - tada - fitting reflections for every point of the level.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image7.png "Reflection probes in Unreal")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image7.png "Reflection probes in Unreal")
 
 ## Working with reflection probes
 
@@ -49,11 +49,11 @@ The second problem: Hundreds of reflection probes will produce hundreds of refle
 
 You may have winced at the mention of this size. 128x128px? Shouldn’t reflections be super blurry then? The answer is, yes actually they tend to be quite blurry. We will come back to this problem later.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image8.png "Blurry reflections")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image8.png "Blurry reflections")
 
 But there is another, third problem, that I avoided to mention until now. So far we assumed that the reflection map is rendered just once, before the game is even started and can be reused every frame. This is true - as long as nothing moves inside the level. Sadly, most games contain moving objects (citation needed) which won't show up in our pretty reflection maps.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image9.png "Spiderman")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image9.png "Spiderman")
 
 Because of this most games do not rely on reflection probes alone to render their reflections. Instead they will mix it with other types of reflections. The most commonly used type for this is probably the use of Screen Space Reflections (SSR).
 
@@ -65,11 +65,11 @@ The main obstacle to this is the realtime update requirement. Rendering a whole 
 
 When looking at reflections you may notice that often the content of the reflection was already rendered elsewhere in the frame. In this example from Uncharted 4, the legs of this guard are visible twice. Once in the reflection in the puddle and only a few pixels above. 
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image10.png "Screenspace")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image10.png "Screenspace")
 
 Wouldn’t it be a waste to render the same pair of legs twice, just to show them in the reflection? Wouldn’t it be enough to render them once and just copy and flip the result? Well, this is exactly how Screen Space Reflections work. First, the whole frame is rendered, without any reflection. Afterward, parts of the rendered frame are copied, flipped, and blended into the reflective parts of the frame.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image11.png "Screenspace")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image11.png "Screenspace")
 
 This mirroring is done only in 2d space, based on the direction the normal is facing. If it is pointing up the pixels are copied from the space above the surface, if they would point downwards, like it would be the case with a reflective ceiling, pixels from below the surface would be used.
 
@@ -83,7 +83,7 @@ So what happens if things move offscreen? In the most simple case, the reflectio
 
 One quirk of the Unreal Engine is, that Screen Space Reflections don’t check if the reflected area is actually behind the reflective area. Take a look at this palmtree. It’s miles away from the ocean in the background, in theory it should not be possible for the tree to appear in this reflection.
 
-![alt_text](/larst-of-us/assetsimages/reflectionsArticle/image12.png "image_tooltip")
+![alt_text](/larst-of-us/assets/images/reflectionsArticle/image12.png "image_tooltip")
 
 ### Perspective Issues
 
